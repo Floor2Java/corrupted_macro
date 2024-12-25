@@ -38,10 +38,10 @@ public class GhostPickaxe {
 
         mc = Minecraft.getMinecraft();
         if (mc.thePlayer == null) return;
+        if(mc.currentScreen!=null)return;
         if (!isHoldingPickaxe()) return;
         if (Mouse.isButtonDown(1)) {
             if (getBlockLookingAt() == null) return;
-            debug(System.currentTimeMillis());
             tick++;
             if (tick == 2) {
                 tick = 0;
@@ -54,7 +54,7 @@ public class GhostPickaxe {
 
     @SubscribeEvent
     public void onPlayerInteract(PlayerInteractEvent event) {
-        if (event.action == PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK || event.action == PlayerInteractEvent.Action.LEFT_CLICK_BLOCK) {
+        if (event.action == PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK) {
             if (event.entityPlayer.getHeldItem() != null && event.entityPlayer.getHeldItem().getItem() instanceof ItemTool) {
                 ItemTool tool = (ItemTool) event.entityPlayer.getHeldItem().getItem();
                 if (tool.getToolClasses(event.entityPlayer.getHeldItem()).contains("pickaxe")) {
