@@ -1,5 +1,8 @@
 package com.github.floor2java.corrupted_macro;
 
+import com.github.floor2java.corrupted_macro.clickgui.ClickGui;
+import com.github.floor2java.corrupted_macro.render.Render;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
@@ -20,6 +23,7 @@ public class CorruptedBanana {
     public void init(FMLInitializationEvent event) {
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.register(new GhostPickaxe());
+        MinecraftForge.EVENT_BUS.register(new Render());
 
         for (KeyBinding k : kList) {
             ClientRegistry.registerKeyBinding(k);
@@ -28,6 +32,8 @@ public class CorruptedBanana {
 
     @SubscribeEvent
     public void onKey(InputEvent.KeyInputEvent e) {
-
+        if (visceraKey.isPressed()) {
+            Minecraft.getMinecraft().displayGuiScreen(new ClickGui());
+        }
     }
 }
